@@ -9,3 +9,4 @@ while True:
         break
 
 
+#try, except : iferror같은 놈
