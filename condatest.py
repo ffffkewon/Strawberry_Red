@@ -1,7 +1,17 @@
 import time
 from keras.datasets import mnist
 (train_images,train_labels),(test_images,test_labels)=mnist.load_data()
-
+print("Train Image Data의 크기는: ",train_images.shape)
+print("Train Image Data의 양식은: ",train_images.dtype)
+#%% Check dataset
+import random
+import matplotlib.pyplot as plt
+print("학습할 Dataset의 형태를 표시합니다 in 3 Seconds")
+time.sleep(1)
+for i in range(0,10):
+    plt.imshow(train_images[random.randint(0,60000)],cmap=plt.cm.binary)
+    plt.show()
+    time.sleep(0.1)
 #%%network
 from keras import models
 from keras import layers
@@ -11,7 +21,8 @@ network.add(layers.Dense(512,activation='relu',input_shape=(28*28,)))
 network.add(layers.Dense(10,activation='softmax'))
 
 #%%compiler
-network.compile(optimizer='rmsprop',
+from keras import optimizers
+network.compile(optimizer=optimizers.RMSprop(lr=0.001),
                 loss = 'categorical_crossentropy',
                 metrics=['accuracy'])
 #%%Data processing
@@ -34,3 +45,6 @@ print("학습된 신경망을 검증합니다...")
 time.sleep(5)
 test_loss,test_acc= network.evaluate(test_images,test_labels)
 print(test_loss, test_acc)
+
+
+#%% 
