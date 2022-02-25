@@ -1,3 +1,12 @@
+# import tensorflow as tf
+
+# gpu = tf.config.experimental.list_physical_devices('GPU') # 내 컴에 장착된 GPU를 list로 반환
+# try:
+#     tf.config.experimental.set_memory_growth(gpu[0], True) # GPU Memory Growth를 Enable
+# except RuntimeError as e:
+#     print(e) # Error 발생하면 Error 내용 출력
+
+
 #%% Loading Data
 from keras.datasets import boston_housing
 
@@ -14,7 +23,7 @@ test_data /= std
 #%% Modeling
 from keras import models
 from keras import layers
-import tensorflow as tf
+
 def build_model():
     review = models.Sequential()
     review.add(layers.Dense(64,activation='relu',input_shape=(train_data.shape[1],)))
@@ -22,7 +31,7 @@ def build_model():
     review.add(layers.Dense(1))
     review.compile(optimizer='rmsprop',
                    loss='mse',
-                   metrics=[tf.keras.metrics.MeanAbsoluteError()])
+                   metrics=['mae'])
     return review
 
 #%% K겹 검증
