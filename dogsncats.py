@@ -120,7 +120,7 @@ validation_generator = test_datagen.flow_from_directory(validation_dir,target_si
 
 #%% Train
 
-history = catdog.fit_generator(train_generator,steps_per_epoch=100,epochs=30,validation_data=validation_generator,validation_steps=50)
+history = catdog.fit_generator(train_generator,steps_per_epoch=100,epochs=100,validation_data=validation_generator,validation_steps=50)
 
 catdog.save('cats_and_dogs_small_1.h5')
 
