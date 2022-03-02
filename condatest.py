@@ -1,5 +1,5 @@
 import time
-from keras.datasets import mnist
+from tensorflow.keras.datasets import mnist
 (train_images,train_labels),(test_images,test_labels)=mnist.load_data()
 print("Train Image Data의 크기는: ",train_images.shape)
 print("Train Image Data의 양식은: ",train_images.dtype)
@@ -21,7 +21,7 @@ network.add(layers.Dense(512,activation='relu',input_shape=(28*28,)))
 network.add(layers.Dense(10,activation='softmax'))
 
 #%%compiler
-from keras import optimizers
+from tensorflow.keras import optimizers
 network.compile(optimizer=optimizers.RMSprop(lr=0.001),
                 loss = 'categorical_crossentropy',
                 metrics=['accuracy'])
@@ -32,7 +32,7 @@ train_images = train_images.astype('float32') /255 #unit to float + normalize
 test_images = test_images.reshape((10000,28*28))
 test_images = test_images.astype('float32') /255
 #%%One hot encoding
-from keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical
 
 train_labels = to_categorical(train_labels)
 test_labels = to_categorical(test_labels)

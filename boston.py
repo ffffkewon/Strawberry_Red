@@ -1,11 +1,10 @@
-# import tensorflow as tf
+import tensorflow as tf
 
 # gpu = tf.config.experimental.list_physical_devices('GPU') # 내 컴에 장착된 GPU를 list로 반환
 # try:
 #     tf.config.experimental.set_memory_growth(gpu[0], True) # GPU Memory Growth를 Enable
 # except RuntimeError as e:
 #     print(e) # Error 발생하면 Error 내용 출력
-
 
 #%% Loading Data
 from keras.datasets import boston_housing
@@ -31,7 +30,7 @@ def build_model():
     review.add(layers.Dense(1))
     review.compile(optimizer='rmsprop',
                    loss='mse',
-                   metrics=['mae'])
+                   metrics=[tf.keras.metrics.MeanAbsoluteError()])
     return review
 
 #%% K겹 검증
@@ -63,7 +62,7 @@ num_val_samples = len(train_data) // k
 #     all_scores.append(val_mae)
 
 #%%
-num_epochs = 500
+num_epochs = 100
 all_mae_histories = []
 
 for i in range(k):
